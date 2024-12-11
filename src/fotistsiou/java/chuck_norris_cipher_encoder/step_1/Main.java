@@ -1,5 +1,7 @@
 package fotistsiou.java.chuck_norris_cipher_encoder.step_1;
 
+import java.util.Scanner;
+
 /**
  * Analyze the words
  * -----------------
@@ -20,4 +22,11 @@ package fotistsiou.java.chuck_norris_cipher_encoder.step_1;
  */
 
 public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Input string:");
+        String input = scanner.nextLine();
+        System.out.println(String.join(" ", input.split("")));
+    }
 }
