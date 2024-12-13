@@ -1,5 +1,7 @@
 package fotistsiou.java.chuck_norris_cipher_encoder.step_2;
 
+import java.util.Scanner;
+
 /**
  * The binary world
  * ----------------
@@ -19,4 +21,19 @@ package fotistsiou.java.chuck_norris_cipher_encoder.step_2;
  */
 
 public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Input string:");
+        char[] characters = scanner.nextLine().toCharArray();
+        System.out.println("The result:");
+        for (char character : characters) {
+            String binaryChar = Integer.toBinaryString(character);
+            System.out.printf(
+                "%c = %07d%n",
+                character,
+                Integer.parseInt(binaryChar)
+            );
+        }
+    }
 }
