@@ -50,20 +50,19 @@ public class Main {
                 if (chuckChar == binaryChars[i - 1]) {
                     counter++;
                     if (i == (binaryChars.length - 1)) {
-                        if (chuckChar == '0') {
-                            System.out.print("0 ");
-                        } else {
+                        if (binaryChars[i - 1] == '0') {
                             System.out.print("00 ");
+                        } else {
+                            System.out.print("0 ");
                         }
                         System.out.print("0".repeat(counter));
-                        System.out.print(" ");
                     }
                 } else {
                     if (counter >= 1) {
-                        if (chuckChar == '0') {
-                            System.out.print("0 ");
-                        } else {
+                        if (binaryChars[i - 1] == '0') {
                             System.out.print("00 ");
+                        } else {
+                            System.out.print("0 ");
                         }
                         System.out.print("0".repeat(counter));
                         System.out.print(" ");
