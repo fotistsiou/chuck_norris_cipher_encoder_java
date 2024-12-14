@@ -1,5 +1,7 @@
 package fotistsiou.java.chuck_norris_cipher_encoder.step_3;
 
+import java.util.Scanner;
+
 /**
  * Chuck Norris encrypts only with zeros
  * -------------------------------------
@@ -28,4 +30,47 @@ package fotistsiou.java.chuck_norris_cipher_encoder.step_3;
  */
 
 public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Input string:");
+        char[] characters = scanner.nextLine().toCharArray();
+        System.out.println("The result:");
+        for (char character : characters) {
+            String binaryStringChar = Integer.toBinaryString(character);
+            binaryStringChar = String.format("%07d", Integer.parseInt(binaryStringChar));
+            char[] binaryChars = binaryStringChar.toCharArray();
+            int counter = 0;
+            char chuckChar;
+            for (int i = 0; i < binaryChars.length; i++) {
+                chuckChar = binaryChars[i];
+                if (i == 0) {
+                    counter++;
+                    continue;
+                }
+                if (chuckChar == binaryChars[i - 1]) {
+                    counter++;
+                    if (i == (binaryChars.length - 1)) {
+                        if (chuckChar == '0') {
+                            System.out.print("0 ");
+                        } else {
+                            System.out.print("00 ");
+                        }
+                        System.out.print("0".repeat(counter));
+                        System.out.print(" ");
+                    }
+                } else {
+                    if (counter >= 1) {
+                        if (chuckChar == '0') {
+                            System.out.print("0 ");
+                        } else {
+                            System.out.print("00 ");
+                        }
+                        System.out.print("0".repeat(counter));
+                        System.out.print(" ");
+                        counter = 1;
+                    }
+                }
+            }
+        }
+    }
 }
