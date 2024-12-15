@@ -32,44 +32,48 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        // Read input string
         System.out.println("Input string:");
-        char[] characters = scanner.nextLine().toCharArray();
-        System.out.println("The result:");
-        for (char character : characters) {
-            String binaryStringChar = Integer.toBinaryString(character);
-            binaryStringChar = String.format("%07d", Integer.parseInt(binaryStringChar));
-            char[] binaryChars = binaryStringChar.toCharArray();
-            int counter = 0;
-            char chuckChar;
-            for (int i = 0; i < binaryChars.length; i++) {
-                chuckChar = binaryChars[i];
-                if (i == 0) {
-                    counter++;
-                    continue;
-                }
-                if (chuckChar == binaryChars[i - 1]) {
-                    counter++;
-                    if (i == (binaryChars.length - 1)) {
-                        if (binaryChars[i - 1] == '0') {
-                            System.out.print("00 ");
-                        } else {
-                            System.out.print("0 ");
-                        }
-                        System.out.print("0".repeat(counter));
-                    }
-                } else {
-                    if (counter >= 1) {
-                        if (binaryChars[i - 1] == '0') {
-                            System.out.print("00 ");
-                        } else {
-                            System.out.print("0 ");
-                        }
-                        System.out.print("0".repeat(counter));
-                        System.out.print(" ");
-                        counter = 1;
-                    }
-                }
+        String input = scanner.nextLine();
+
+        // Initialize result string
+        StringBuilder result = new StringBuilder();
+
+        // Convert input string to binary representation (7-bit ASCII)
+        StringBuilder binaryString = new StringBuilder();
+        for (char character : input.toCharArray()) {
+            binaryString.append(String.format("%07d", Integer.parseInt(Integer.toBinaryString(character))));
+        }
+        System.out.println(binaryString);
+
+        // Process binary string to generate Chuck Norris Unary Code
+        int i = 0;
+        while (i < binaryString.length()) {
+            char currentBit = binaryString.charAt(i);
+            System.out.println(currentBit);
+            int count = 0;
+
+            // Count consecutive bits
+            while (i < binaryString.length() && binaryString.charAt(i) == currentBit) {
+                count++;
+                i++;
+            }
+
+            // Append block header: 0 for '1', 00 for '0'
+            result.append(currentBit == '1' ? "0 " : "00 ");
+
+            // Append number of zeros for the count
+            result.append("0".repeat(count));
+
+            // Add space between blocks if more characters remain
+            if (i < binaryString.length()) {
+                result.append(" ");
             }
         }
+
+        // Output result
+        System.out.println("The result:");
+        System.out.println(result);
     }
 }
