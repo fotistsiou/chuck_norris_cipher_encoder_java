@@ -31,54 +31,58 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+
+        // Read input string
         Scanner scanner = new Scanner(System.in);
-        String binaryStringChar = "";
         System.out.println("Input string:");
-        char[] characters = scanner.nextLine().toCharArray();
+        String input = scanner.nextLine();
+        scanner.close();
+
+        // Initialize result string
+        StringBuilder result = new StringBuilder();
+
+        // Convert input string to binary representation (7-bit ASCII)
+        StringBuilder binaryString = new StringBuilder();
+        for (char character : input.toCharArray()) {
+            // Convert character to binary string
+            String binaryStringCharacter = Integer.toBinaryString(character);
+            // Convert binary string to 7-bit binary string
+            binaryStringCharacter = String.format(
+                    "%07d",
+                    Integer.parseInt(binaryStringCharacter)
+            );
+            binaryString.append(binaryStringCharacter);
+        }
+
+
+        // Process binary string to generate Chuck Norris Unary Code
+        int i = 0;
+        while (i < binaryString.length()) {
+            // Get current bit from binary string
+            char currentBit = binaryString.charAt(i);
+
+            // Count consecutive bits
+            int count = 0;
+            while (i < binaryString.length() && binaryString.charAt(i) == currentBit) {
+                count++;
+                i++;
+            }
+
+            // Append block header: 0 for '1', 00 for '0'
+            result.append(currentBit == '1' ? "0 " : "00 ");
+
+            // Append number of zeros for the count
+            result.append("0".repeat(count));
+
+            // Add space between blocks if more characters remain
+            if (i < binaryString.length()) {
+                result.append(" ");
+            }
+        }
+
+        // Output result
         System.out.println("The result:");
-        for (char character : characters) {
-            String binaryStringChars = Integer.toBinaryString(character);
-            binaryStringChar += String.format("%07d", Integer.parseInt(binaryStringChars));
-        }
-        char[] binaryChars = binaryStringChar.toCharArray();
-        int counter = 0;
-        char chuckChar;
-        for (int i = 0; i < binaryChars.length; i++) {
-            chuckChar = binaryChars[i];
-            if (i == 0) {
-                counter++;
-                continue;
-            }
-            if (chuckChar == binaryChars[i - 1]) {
-                counter++;
-                if (i == (binaryChars.length - 1)) {
-                    if (binaryChars[i - 1] == '0') {
-                        System.out.print("00 ");
-                    } else {
-                        System.out.print("0 ");
-                    }
-                    System.out.print("0".repeat(counter));
-                }
-            } else {
-                if (counter >= 1) {
-                    if (binaryChars[i - 1] == '0') {
-                        System.out.print("00 ");
-                    } else {
-                        System.out.print("0 ");
-                    }
-                    System.out.print("0".repeat(counter));
-                    System.out.print(" ");
-                    counter = 1;
-                }
-                if (i == (binaryChars.length - 1)) {
-                    if (binaryChars[i] == '0') {
-                        System.out.print("00 ");
-                    } else {
-                        System.out.print("0 ");
-                    }
-                    System.out.print("0".repeat(counter));
-                }
-            }
-        }
+        System.out.println(result);
     }
 }
