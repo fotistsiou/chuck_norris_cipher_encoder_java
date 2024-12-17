@@ -31,8 +31,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
-
         // Read input string
         Scanner scanner = new Scanner(System.in);
         System.out.println("Input string:");
@@ -48,10 +46,8 @@ public class Main {
             // Convert character to binary string
             String binaryStringCharacter = Integer.toBinaryString(character);
             // Convert binary string to 7-bit binary string
-            binaryStringCharacter = String.format(
-                    "%07d",
-                    Integer.parseInt(binaryStringCharacter)
-            );
+            binaryStringCharacter = String.format("%07d", Integer.parseInt(binaryStringCharacter));
+            // Append 7-bit binary string to binary string
             binaryString.append(binaryStringCharacter);
         }
 
