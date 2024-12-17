@@ -1,5 +1,7 @@
 package fotistsiou.java.chuck_norris_cipher_encoder.step_4;
 
+import java.util.Scanner;
+
 /**
  * Try to understand it
  * --------------------
@@ -27,4 +29,36 @@ package fotistsiou.java.chuck_norris_cipher_encoder.step_4;
  */
 
 public class Main {
+    public static void main(String[] args) {
+        // Read input string
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Input string:");
+        String input = scanner.nextLine();
+        scanner.close();
+
+        // Initialize StringBuilder for the binary result
+        StringBuilder binaryResult = new StringBuilder();
+
+        // Split the input into binary chunks
+        String[] binaries = input.split(" ");
+
+        // Process the input pairs
+        for (int i = 0; i < binaries.length; i += 2) {
+            String binaryBit = binaries[i].equals("0") ? "1" : "0"; // Toggle bit
+            int repeatCount = binaries[i + 1].length();             // Count of repeats
+
+            // Append toggled bit repeated 'repeatCount' times
+            binaryResult.append(binaryBit.repeat(repeatCount));
+        }
+
+        // Split the binary result into 7-bit chunks
+        String[] characters = binaryResult.toString().split("(?<=\\G.{7})");
+
+        // Convert each 7-bit chunk to a character and print it
+        System.out.println("The result:");
+        for (String character : characters) {
+            int numChar = Integer.parseInt(character, 2);
+            System.out.print((char) numChar);
+        }
+    }
 }
