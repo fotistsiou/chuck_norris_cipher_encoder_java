@@ -45,19 +45,25 @@ public class Main {
         // Process the input pairs
         for (int i = 0; i < binaries.length; i += 2) {
             String binaryBit = binaries[i].equals("0") ? "1" : "0"; // Toggle bit
-            int repeatCount = binaries[i + 1].length();             // Count of repeats
+            int repeatCount = binaries[i + 1].length(); // Count of repeats
 
             // Append toggled bit repeated 'repeatCount' times
             binaryResult.append(binaryBit.repeat(repeatCount));
         }
 
         // Split the binary result into 7-bit chunks
+        // Regex: (?<=\\G.{7})
+        // 1. (?<=...): A lookbehind assertion that ensures the split occurs after a match of the preceding pattern.
+        // 2. \\G: Matches the end of the last match or the start of the string for the first match.
+        // 3. .{7}: Matches exactly 7 characters.
         String[] characters = binaryResult.toString().split("(?<=\\G.{7})");
 
         // Convert each 7-bit chunk to a character and print it
         System.out.println("The result:");
         for (String character : characters) {
+            // Converting a binary string to a base-2 (decimal) number.
             int numChar = Integer.parseInt(character, 2);
+            // Convert a base-2 (decimal) number to a character.
             System.out.print((char) numChar);
         }
     }

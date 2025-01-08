@@ -27,6 +27,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Input string:");
         String input = scanner.nextLine();
+        scanner.close();
+
         System.out.println(String.join(" ", input.split("")));
     }
 }

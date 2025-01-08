@@ -26,6 +26,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Input string:");
         char[] characters = scanner.nextLine().toCharArray();
+        scanner.close();
+
         System.out.println("The result:");
         for (char character : characters) {
             String binaryChar = Integer.toBinaryString(character);
