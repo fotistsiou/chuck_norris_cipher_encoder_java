@@ -1,5 +1,7 @@
 package fotistsiou.java.chuck_norris_cipher_encoder.step_5;
 
+import java.util.Scanner;
+
 /**
  * Cooler than Chuck Norris
  * ------------------------
@@ -30,4 +32,150 @@ package fotistsiou.java.chuck_norris_cipher_encoder.step_5;
  */
 
 public class Main {
+    public static void main(String[] args) {
+        // Read input string
+        Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
+
+        while (!exit) {
+            System.out.println("Please input operation (encode/decode/exit):");
+            String operation = scanner.nextLine();
+            switch (operation) {
+                case "encode":
+                    System.out.println("Input string:");
+                    String encode = scanner.nextLine();
+                    Main.encodeChuckNorrisCipher(encode);
+
+                    break;
+                case "decode":
+                    System.out.println("Input encoded string:");
+                    String decode = scanner.nextLine();
+                    boolean valid = Main.checkEncodedInput(decode);
+                    if (valid) {
+                        Main.decodeChuckNorrisCipher(decode);
+                    } else {
+                        System.out.println("Encoded string is not valid.");
+                    }
+                    break;
+                case "exit":
+                    System.out.println("Bye!");
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("There is no '" + operation + "' operation");
+            }
+        }
+
+        scanner.close();
+    }
+
+    public static void encodeChuckNorrisCipher(String input) {
+        // Initialize result string
+        StringBuilder result = new StringBuilder();
+
+        // Convert input string to binary representation (7-bit ASCII)
+        StringBuilder binaryString = new StringBuilder();
+        for (char character : input.toCharArray()) {
+            // Convert character to binary string
+            String binaryStringCharacter = Integer.toBinaryString(character);
+            // Convert binary string to 7-bit binary string
+            binaryStringCharacter = String.format("%07d", Integer.parseInt(binaryStringCharacter));
+            // Append 7-bit binary string to binary string
+            binaryString.append(binaryStringCharacter);
+        }
+
+        // Process binary string to generate Chuck Norris Unary Code
+        int i = 0;
+        while (i < binaryString.length()) {
+            // Get current bit from binary string
+            char currentBit = binaryString.charAt(i);
+
+            // Count consecutive bits
+            int count = 0;
+            while (i < binaryString.length() && binaryString.charAt(i) == currentBit) {
+                count++;
+                i++;
+            }
+
+            // Append block header: 0 for '1', 00 for '0'
+            result.append(currentBit == '1' ? "0 " : "00 ");
+
+            // Append number of zeros for the count
+            result.append("0".repeat(count));
+
+            // Add space between blocks if more characters remain
+            if (i < binaryString.length()) {
+                result.append(" ");
+            }
+        }
+
+        // Output result
+        System.out.println("Encoded string:");
+        System.out.println(result);
+    }
+
+    public static void decodeChuckNorrisCipher(String input) {
+        // Initialize StringBuilder for the binary result
+        StringBuilder binaryResult = new StringBuilder();
+
+        // Split the input into binary chunks
+        String[] binaries = input.split(" ");
+
+        // Process the input pairs
+        for (int i = 0; i < binaries.length; i += 2) {
+            String binaryBit = binaries[i].equals("0") ? "1" : "0"; // Toggle bit
+            int repeatCount = binaries[i + 1].length();             // Count of repeats
+
+            // Append toggled bit repeated 'repeatCount' times
+            binaryResult.append(binaryBit.repeat(repeatCount));
+        }
+
+        // Split the binary result into 7-bit chunks
+        // Regex: (?<=\\G.{7})
+        // 1. (?<=...): A lookbehind assertion that ensures the split occurs after a match of the preceding pattern.
+        // 2. \\G: Matches the end of the last match or the start of the string for the first match.
+        // 3. .{7}: Matches exactly 7 characters.
+        String[] characters = binaryResult.toString().split("(?<=\\G.{7})");
+
+        // Convert each 7-bit chunk to a character and print it
+        System.out.println("Decoded string:");
+        for (String character : characters) {
+            // Converting a binary string to a base-2 (decimal) number.
+            int numChar = Integer.parseInt(character, 2);
+            // Convert a base-2 (decimal) number to a character.
+            System.out.print((char) numChar);
+        }
+        System.out.println();
+    }
+
+    public static boolean checkEncodedInput(String input) {
+        // Check if the input includes characters other than 0 or spaces
+        if (!input.matches("[0 ]+")) {
+            return false;
+        }
+
+        String[] binaries = input.split(" ");
+
+        // Check if the number of input blocks is odd
+        if (binaries.length % 2 != 0) {
+            return false;
+        }
+
+        int lengthOfDecodedBinaryString = 0;
+
+        for (int i = 0; i < binaries.length; i += 2) {
+            // Check if the first block in each pair is "0" or "00"
+            if (!binaries[i].equals("0") && !binaries[i].equals("00")) {
+                return false;
+            }
+            lengthOfDecodedBinaryString += binaries[i + 1].length();
+        }
+
+        // Check if the length of the decoded binary string is a multiple of 7.
+        if (lengthOfDecodedBinaryString % 7 != 0) {
+            return false;
+        }
+
+        return true;
+    }
 }
