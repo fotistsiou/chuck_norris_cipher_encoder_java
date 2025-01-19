@@ -51,7 +51,6 @@ public class Main {
             binaryString.append(binaryStringCharacter);
         }
 
-
         // Process binary string to generate Chuck Norris Unary Code
         int i = 0;
         while (i < binaryString.length()) {
