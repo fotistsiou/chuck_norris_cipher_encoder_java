@@ -1,7 +1,7 @@
 # Chuck Norris Cipher Encoder (Java)
 
 ## Project Details
-> - **Level**: 🌟🌟🌟 Hard | **Time**: 🕒 ~15 hours
+> - **Level**: 🌟🌟🌟🌟 Challenging | **Time**: 🕒 ~17 hours
 > - **Course**: [Introduction to Java](https://hyperskill.org/courses/8-introduction-to-java)
 > - **Project**: [Chuck Norris Cipher Encoder (Java)](https://hyperskill.org/projects/293?track=8)
 > - **Description**: This project will allow us to deal with string and character variables and work with loops and 
@@ -41,14 +41,20 @@ to get it built. Here’s what awaits you:
     - Comparing values. Relational operators
     - Conditional statement
     - One-line condition with ternary operator
-    - While and do-while loops
     - For loop
+    - While and do-while loops
     - Break and continue. Branching
     - Primitive and reference types
     - Array
     - Characters
     - String
+    - IDE
+    - What are bugs
     - Processing strings
+    - Debugging overview
+    - IntelliJ IDEA
+    - Run and debug with IntelliJ IDEA
+    - Debugging simple constructs
 - Stage 2/5: The binary world
   - Learn how to convert characters into their binary representation.
   - Stage Topics:
@@ -72,6 +78,9 @@ to get it built. Here’s what awaits you:
     - Overloading
     - Arrays as parameters
     - Write, compile, and run
+    - Errors in programs
+    - First glance at exceptions
+    - What is object-oriented programming
     - Defining classes
     - Grouping classes with packages
     - Instance methods
@@ -81,7 +90,5 @@ to get it built. Here’s what awaits you:
     - Inheritance
     - Multiple constructors
     - Keyword "super"
-    - Errors in programs
-    - First glance at exceptions
     - Hierarchy of exceptions
     - Exception handling
